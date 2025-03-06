@@ -1,0 +1,50 @@
+analyze_prompt_task:
+  description: >
+    Find tables and columns from the database to answer the following question:
+    {user_question}
+    If you don't find anything relevant to the user question in the database, do not provide any data 
+  expected_output: >
+    Tables, their columns with data types, relevant column values, joinable tables with JOIN column,
+    relevant questions and answers
+  agent: prompt_analyzer
+
+create_query_task:
+  description: >
+    Craft the best SQL query using data from the 'prompt_analyzer' to answer the following question: {user_question}
+    If the 'prompt_analyzer' will not provide any data you don't execute any query
+  expected_output: >
+    The data returned by the SQL query
+  agent: query_creator
+
+search_external_task:
+  description: >
+    Search data from external sources if needed to answer the following question: {user_question}
+    If the 'query_creator' response is exhaustive or the 'query_creator' has not done any query, don't do anything.
+  expected_output: >
+    The data from external sources
+  agent: data_searcher
+
+create_plots_task:
+  description: >
+    Create matplotlib plots for visualizing data from the 'query_creator' and 'data_searcher' if asked by the user in the following question: {user_question}
+  expected_output: >
+    List of matplotlib plot images URLs or nothing if plots must not be created
+  agent: data_visualizer
+
+answer_question_task:
+  description: >
+    Answer the following question: {user_question}
+    
+    Use the data from the 'query_creator' and the 'data_searcher' to give the answer.
+    
+    When answering, always:    
+    - Do not comment on topics outside the area of your expertise.
+    - Show data to support your claims.  
+    - Do not state who you are and who gave you the data.
+    - Ensure that your analysis is accurate and relevant to the research questions.
+    - Use markdown format for your final answer.
+    - Use plot images URLs in markdown only if produced by the 'data_visualizer'
+    - Use emojis for paragraph titles.
+  expected_output: >
+    A clear and concise answer to the question
+  agent: lead_data_analyst
