@@ -51,8 +51,8 @@ This repo contains the solution by **Da_Vincis_PizzAI** team, whose member are:
 
 - Alessandro Chiariello ([@DemS98](https://github.com/DemS98))
 - Simone Antonini
-- Talles Di Cunto
-- Pietro Giordano
+- Talles Di Cunto ([@ambientals](https://github.com/ambientals))
+- Pietro Giordano ([@giordanopietro](https://github.com/giordanopietro))
 
 The solution gave the team 6th place out of 405 teams.
 
